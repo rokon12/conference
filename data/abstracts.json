@@ -1,0 +1,42 @@
+[
+  {
+    "talkTitle": "Building LLM Apps in Java with LangChain4j and Jakarta EE",
+    "abstract": "Large Language Models (LLMs) have revolutionized how we approach natural language processing and AI applications. In this talk, we'll explore how Java developers can leverage these powerful models using LangChain4j within Jakarta EE applications. You'll learn how to integrate OpenAI, Anthropic, and other LLM providers, implement prompt engineering techniques, and build robust, production-ready AI-enhanced applications using familiar Java technologies."
+  },
+  {
+    "talkTitle": "Breaking Java Stereotypes: It's Not Your Dad's Language Anymore",
+    "abstract": "Java has evolved significantly over the past few years, yet many developers still view it through outdated stereotypes. This session challenges those misconceptions by showcasing modern Java's concise syntax, powerful features, and excellent performance. We'll explore records, pattern matching, text blocks, switch expressions, and the revolutionary virtual threads. Join us to discover why Java remains relevant and exciting in today's fast-paced development landscape."
+  },
+  {
+    "talkTitle": "A Tale of Two Cities: Blocking Code vs. Non‑Blocking Code",
+    "abstract": "In this talk, we'll explore the fundamental differences between blocking and non-blocking programming models. We'll examine how these approaches impact application performance, scalability, and developer experience. Through practical examples and benchmarks, you'll learn when to choose each approach and how modern Java features like virtual threads are bridging the gap between these two paradigms. This session will help you make informed architectural decisions for your next project."
+  },
+  {
+    "talkTitle": "Virtual Threads: Ushering a New Era of Concurrency",
+    "abstract": "Java's Project Loom introduces virtual threads, a revolutionary approach to concurrency that promises to simplify development while dramatically improving application throughput. This session provides a deep dive into virtual threads, explaining how they differ from platform threads, their performance characteristics, and best practices for implementation. You'll see real-world examples demonstrating how virtual threads can transform your existing applications with minimal code changes."
+  },
+  {
+    "talkTitle": "Java Threading Essentials: Novice to Expert",
+    "abstract": "Concurrency is one of Java's most powerful yet challenging aspects. This comprehensive session takes you from threading basics to advanced concepts, covering thread creation, synchronization, locks, thread pools, and the ExecutorService framework. We'll also explore common pitfalls, debugging techniques, and performance considerations. Whether you're new to threading or looking to deepen your expertise, you'll gain practical knowledge applicable to your daily development work."
+  },
+  {
+    "talkTitle": "Your Code on the Fastlane: Catch Up with Everyone",
+    "abstract": "In today's fast-paced development environment, keeping your codebase modern and maintainable is crucial. This session explores practical techniques for incrementally modernizing legacy applications, adopting new language features, and improving performance without complete rewrites. You'll learn strategies for technical debt management, code refactoring, and introducing modern patterns that can be applied immediately to your projects."
+  },
+  {
+    "talkTitle": "Jakarta Starter: Create, Build, and Run Jakarta EE Applications in Under a Minute",
+    "abstract": "Getting started with Jakarta EE can be challenging for newcomers. This session introduces Jakarta Starter, a tool designed to simplify the process of creating, building, and running Jakarta EE applications. You'll see how to generate a complete project structure with your chosen specifications, build system, and application server in under a minute. We'll demonstrate how this tool accelerates development and helps developers focus on business logic rather than configuration."
+  },
+  {
+    "talkTitle": "Creating a Million Virtual Threads Using Project Loom",
+    "abstract": "Project Loom's virtual threads enable Java applications to handle unprecedented levels of concurrency. In this hands-on session, we'll create and manage a million virtual threads, demonstrating their minimal resource footprint and impressive performance characteristics. You'll learn practical patterns for migrating existing applications to virtual threads and design considerations for new projects. This session includes live coding and performance analysis to illustrate the transformative potential of this technology."
+  },
+  {
+    "talkTitle": "Advanced Java Memory Management",
+    "abstract": "Understanding Java's memory management is crucial for building high-performance applications. This deep dive session explores the JVM's memory architecture, garbage collection algorithms, and tools for diagnosing memory issues. You'll learn how to profile applications, identify memory leaks, and optimize memory usage. We'll also cover recent advancements in GC technology and practical techniques for reducing memory pressure in your applications."
+  },
+  {
+    "talkTitle": "Top 10 Questions Asked by Junior Java Developers",
+    "abstract": "Based on years of mentoring experience, this session addresses the most common questions and challenges faced by junior Java developers. We'll cover topics like best practices for exception handling, understanding inheritance vs. composition, effective use of collections, and navigating the Java ecosystem. This practical session provides clear guidance and actionable advice to help new developers accelerate their Java journey."
+  }
+]

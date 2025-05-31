@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Conferences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc; /* Lighter gray background */
+        }
+        /* Basic scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #edf2f7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #a0aec0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #718096; }
+
+        .conference-card-enter {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        .conference-card-enter-active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .year-header {
+            color: #2d3748; /* Tailwind gray-800 */
+            border-bottom: 3px solid #6366f1; /* Tailwind indigo-500 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 2.25rem; /* text-4xl */
+            line-height: 2.5rem;
+        }
+         .status-badge {
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* semibold */
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-upcoming {
+            background-color: #c7d2fe; /* indigo-200 */
+            color: #4338ca; /* indigo-800 */
+        }
+        .status-past {
+            background-color: #ccfbf1; /* teal-100 */
+            color: #0f766e; /* teal-700 */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+
+        <header class="mb-12 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-indigo-600">Conference Journey</h1>
+            <p class="text-xl text-gray-600 mt-3">Engagements, Talks, and Workshops Over the Years.</p>
+        </header>
+
+        <main id="conference-main-list" class="space-y-12">
+            <p id="loading-conferences" class="text-center text-gray-500 text-lg py-10">
+                <svg class="animate-spin h-8 w-8 text-indigo-500 mx-auto mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                Loading conference engagements...
+            </p>
+        </main>
+
+        <footer class="text-center mt-20 py-10 border-t border-gray-300">
+            <p class="text-gray-600">&copy; <span id="currentYear"></span> Your Name. All rights reserved.</p>
+            <p class="text-sm text-gray-500 mt-1">Designed with Tailwind CSS. Data loaded dynamically.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // --- Configuration ---
+        // Replace this URL with the raw link to YOUR JSON file on GitHub
+        const conferencesJsonUrl = 'https://raw.githubusercontent.com/rokon12/rokon12/refs/heads/main/speaking.json';
+        // const conferencesJsonUrl = 'YOUR_JSON_URL_HERE'; // Example if you change it
+
+        // --- Helper Functions ---
+        function getYearFromDate(dateString) {
+            if (!dateString) return 'Unknown Year';
+            try {
+                // Attempt to handle date ranges like "October 15-17, 2025" by taking the first part
+                // and ensuring the year part is correctly isolated.
+                const parts = dateString.split(',');
+                let yearPart = parts.pop().trim(); // Get the last part, should be the year
+                let monthDayPart = parts.join(',').trim(); // Get the rest
+
+                // If yearPart is not 4 digits, try to find it in monthDayPart (e.g. "Jan 2025")
+                if (!/^\d{4}$/.test(yearPart) && monthDayPart) {
+                    const yearMatchInMonthDay = monthDayPart.match(/\b\d{4}\b/);
+                    if (yearMatchInMonthDay) {
+                        yearPart = yearMatchInMonthDay[0];
+                        // Remove the year from monthDayPart if found there
+                        monthDayPart = monthDayPart.replace(yearPart, '').trim();
+                    }
+                }
+                
+                // Ensure we have a month/day part before trying to construct a date
+                // If monthDayPart is empty after extracting year (e.g. date was just "2025"),
+                // we can just use the year.
+                if (!monthDayPart && /^\d{4}$/.test(yearPart)) {
+                     return yearPart;
+                } else if (!monthDayPart) { // If no month/day and year is not valid, fallback
+                    const yearMatchGeneral = dateString.match(/\b\d{4}\b/);
+                    if (yearMatchGeneral) return yearMatchGeneral[0];
+                    return 'Unknown Year';
+                }
+
+
+                const parsableDateString = monthDayPart.split('-')[0].trim() + ', ' + yearPart;
+                const date = new Date(parsableDateString);
+
+                if (!isNaN(date.getFullYear())) {
+                    return date.getFullYear().toString();
+                }
+            } catch (e) {
+                console.warn(`Could not parse year from date: "${dateString}"`, e);
+            }
+             // Last resort: try to find any 4-digit number as a year
+            const yearMatch = dateString.match(/\b\d{4}\b/);
+            if (yearMatch) return yearMatch[0];
+            return 'Unknown Year';
+        }
+
+
+        function createLinkButton(link, isUpcoming) {
+            let bgColor = 'bg-gray-500 hover:bg-gray-600';
+            let iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>`; // Default link icon
+
+            if (link.type === 'event') {
+                bgColor = isUpcoming ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-teal-500 hover:bg-teal-600';
+            } else if (link.type === 'slides') {
+                bgColor = 'bg-green-500 hover:bg-green-600';
+                // Using a presentation/slides icon
+                iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a1 1 0 001 1h12a1 1 0 001-1V5a1 1 0 000-2H3zm3 2h8v1H6V5zm0 2h8v1H6V7zm0 2h5v1H6V9z" clip-rule="evenodd" /></svg>`;
+            } else if (link.type === 'video') {
+                bgColor = 'bg-red-500 hover:bg-red-600';
+                iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm14.553 1.106A1 1 0 0016 8v4a1 1 0 00.553.894l2-1A1 1 0 0019 11V9a1 1 0 00-.447-.894l-2-1z" /></svg>`;
+            }
+
+            return `
+                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-sm ${bgColor} text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 inline-flex items-center shadow-sm hover:shadow-md">
+                    ${iconSvg}
+                    ${link.text}
+                </a>
+            `;
+        }
+
+        function createConferenceCard(conference) {
+            const linksHtml = conference.links && conference.links.length > 0
+                ? conference.links.map(link => createLinkButton(link, conference.isUpcoming)).join('')
+                : '';
+
+            const titleColor = conference.isUpcoming ? 'text-indigo-700 hover:text-indigo-800' : 'text-teal-700 hover:text-teal-800';
+            const statusBadgeClass = conference.isUpcoming ? 'status-upcoming' : 'status-past';
+            const statusText = conference.isUpcoming ? 'Upcoming' : 'Past Event';
+
+            const locationEmoji = conference.locationIcon || '📍';
+            const talkEmoji = conference.talkIcon || (conference.type === 'workshop' ? '�️' : '🎤');
+            const talkLabel = conference.type === 'workshop' ? 'Workshop' : 'Talk';
+
+            const card = document.createElement('div');
+            card.className = 'bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 conference-card-enter transform hover:-translate-y-1';
+
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+                    <div class="text-sm text-gray-500 whitespace-nowrap">
+                        🗓️ ${conference.date}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold ${titleColor} mb-1 transition-colors">
+                        <a href="${conference.eventUrl || '#'}" class="hover:underline" target="_blank" rel="noopener noreferrer">${conference.name}</a>
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-1 font-medium">${conference.role || 'Attendee'}</p>
+                </div>
+                <p class="text-gray-700 my-3 text-sm">
+                    <span class="font-semibold">${locationEmoji} Location:</span> ${conference.location}
+                </p>
+                ${conference.talkTitle ? `
+                <p class="bg-gray-50 p-3 rounded-md text-gray-800 mb-4 text-sm">
+                    <span class="font-semibold block mb-1 text-gray-600">${talkEmoji} ${talkLabel}:</span>
+                    "${conference.talkTitle}"
+                </p>
+                ` : ''}
+                ${linksHtml ? `<div class="mt-4 flex flex-wrap gap-3 items-center">${linksHtml}</div>` : ''}
+            `;
+            requestAnimationFrame(() => {
+                card.classList.add('conference-card-enter-active');
+            });
+            return card;
+        }
+
+        // --- Main Function to Load and Display Conferences ---
+        async function loadConferences() {
+            const mainListContainer = document.getElementById('conference-main-list');
+            const loadingMessage = document.getElementById('loading-conferences');
+
+            try {
+                const response = await fetch(conferencesJsonUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - Could not fetch ${conferencesJsonUrl}`);
+                }
+                const conferences = await response.json();
+
+                if (!conferences || conferences.length === 0) {
+                    loadingMessage.textContent = 'No conference engagements found.';
+                    loadingMessage.classList.remove('py-10'); 
+                    const spinner = loadingMessage.querySelector('svg');
+                    if(spinner) spinner.remove();
+                    return;
+                }
+
+                // Group conferences by year
+                const conferencesByYear = {};
+                conferences.forEach(conf => {
+                    const year = getYearFromDate(conf.date);
+                    if (!conferencesByYear[year]) {
+                        conferencesByYear[year] = [];
+                    }
+                    conferencesByYear[year].push(conf);
+                });
+
+                // Sort years in descending order (most recent first)
+                const sortedYears = Object.keys(conferencesByYear).sort((a, b) => {
+                    // Handle "Unknown Year" by placing it at the end
+                    if (a === 'Unknown Year') return 1;
+                    if (b === 'Unknown Year') return -1;
+                    return parseInt(b) - parseInt(a);
+                });
+
+
+                // Clear loading message and main container
+                loadingMessage.remove();
+                mainListContainer.innerHTML = '';
+
+                sortedYears.forEach(year => {
+                    const yearSection = document.createElement('section');
+                    yearSection.className = 'year-group mb-12'; 
+
+                    const yearHeader = document.createElement('h2');
+                    yearHeader.className = 'year-header';
+                    yearHeader.textContent = year;
+                    yearSection.appendChild(yearHeader);
+
+                    const yearCardContainer = document.createElement('div');
+                    yearCardContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6'; // Using grid for better card layout
+
+                    const conferencesInYear = conferencesByYear[year].sort((a, b) => {
+                        if (a.isUpcoming && !b.isUpcoming) return -1;
+                        if (!a.isUpcoming && b.isUpcoming) return 1;
+                        try {
+                            const dateA = new Date(a.date.split('-')[0].trim().split(',')[0] + ', ' + getYearFromDate(a.date));
+                            const dateB = new Date(b.date.split('-')[0].trim().split(',')[0] + ', ' + getYearFromDate(b.date));
+                             if (a.isUpcoming) return dateA - dateB; 
+                             return dateB - dateA; 
+                        } catch (e) {
+                            return a.name.localeCompare(b.name);
+                        }
+                    });
+
+
+                    conferencesInYear.forEach(conf => {
+                        const card = createConferenceCard(conf);
+                        yearCardContainer.appendChild(card);
+                    });
+
+                    yearSection.appendChild(yearCardContainer);
+                    mainListContainer.appendChild(yearSection);
+                });
+
+                if (mainListContainer.innerHTML === '') { 
+                     mainListContainer.innerHTML = '<p class="text-center text-gray-500 text-lg">No conference engagements found after processing.</p>';
+                }
+
+
+            } catch (error) {
+                console.error('Error loading conferences:', error);
+                if (loadingMessage) { // Check if loadingMessage still exists
+                    loadingMessage.innerHTML = `<p class="text-red-500 text-center">Failed to load conference engagements. Please check the console for errors or try again later.</p>`;
+                } else { // If loadingMessage was removed, append error to main container
+                    mainListContainer.innerHTML = `<p class="text-red-500 text-center">Failed to load conference engagements. Please check the console for errors or try again later.</p>`;
+                }
+            }
+        }
+
+        // --- Initialize ---
+        document.addEventListener('DOMContentLoaded', loadConferences);
+    </script>
+
+</body>
+</html>
+�

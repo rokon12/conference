@@ -1,0 +1,38 @@
+{
+  "name": "Bazlur Rahman",
+  "title": "Software Engineer & Java Champion",
+  "profileImage": "https://cdn.bsky.app/img/avatar/plain/did:plc:fhw4stefjwtey5odbd45aegr/bafkreidvyo2raswfv5ngwozgmr5yebo4zejppqfopmc2xlco4ubbwtomgq@jpeg",
+  "bio": "Bazlur Rahman is a Software Engineer, Java Champion, and author with over a decade of experience in the software industry. He specializes in Java, Jakarta EE, and cloud-native technologies. Bazlur is passionate about sharing knowledge through speaking engagements, writing, and mentoring.",
+  "socialProfiles": [
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/bazlur_rahman",
+      "icon": "twitter"
+    },
+    {
+      "platform": "blueSky",
+      "url": "https://bsky.app/profile/bazlur.ca",
+      "icon": "bsky"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/bazlur/",
+      "icon": "linkedin"
+    },
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/rokon12",
+      "icon": "github"
+    },
+    {
+      "platform": "Sessionize",
+      "url": "https://sessionize.com/bazlur",
+      "icon": "sessionize"
+    },
+    {
+      "platform": "Website",
+      "url": "https://bazlur.ca",
+      "icon": "globe"
+    }
+  ]
+}
