@@ -4,11 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A showcase of speaking engagements, including conferences, Java User Group talks, and workshops over the years. Track past and upcoming events.">
+    <meta name="keywords" content="speaking engagements, conferences, Java, talks, workshops, tech events">
+    <meta name="author" content="Bazlur Rahman">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="canonical" href="https://bazlur.ca/speaking/">
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Speaking Journey">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.svg">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bazlur.ca/speaking/">
+    <meta property="og:title" content="Speaking Journey | Conferences and Java User Group Talks">
+    <meta property="og:description" content="A showcase of speaking engagements, including conferences, Java User Group talks, and workshops over the years.">
+    <meta property="og:image" content="https://cdn.bsky.app/img/avatar/plain/did:plc:fhw4stefjwtey5odbd45aegr/bafkreidvyo2raswfv5ngwozgmr5yebo4zejppqfopmc2xlco4ubbwtomgq@jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bazlur.ca/speaking/">
+    <meta property="twitter:title" content="Speaking Journey | Conferences and Java User Group Talks">
+    <meta property="twitter:description" content="A showcase of speaking engagements, including conferences, Java User Group talks, and workshops over the years.">
+    <meta property="twitter:image" content="https://cdn.bsky.app/img/avatar/plain/did:plc:fhw4stefjwtey5odbd45aegr/bafkreidvyo2raswfv5ngwozgmr5yebo4zejppqfopmc2xlco4ubbwtomgq@jpeg">
+
     <title>Speaking Journey | Conferences and Java User Group Talks</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎤</text></svg>">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --bg-color: #f7fafc;
+            --text-color: #2d3748;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        body.dark-mode {
+            --bg-color: #1a202c;
+            --text-color: #e2e8f0;
+        }
+    </style>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured Data for Events -->
+    <script type="application/ld+json" id="eventStructuredData">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": []
+    }
+    </script>
 </head>
 <body class="text-gray-800 p-4 md:p-8">
     <div class="max-w-5xl mx-auto">
@@ -65,6 +124,22 @@
         </svg>
     </button>
 
-    <script src="js/main.js"></script>
+    <!-- Defer non-critical JavaScript -->
+    <script src="js/main.js" defer></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

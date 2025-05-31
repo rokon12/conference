@@ -356,6 +356,50 @@ function displayEvents(events) {
     setupLazyLoading();
 }
 
+// --- Generate Structured Data for Events ---
+function generateStructuredData(events) {
+    // Filter to only include upcoming events
+    const upcomingEvents = events.filter(event => event.isUpcoming);
+
+    // Create structured data for events
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": []
+    };
+
+    // Add each event to the structured data
+    upcomingEvents.forEach((event, index) => {
+        const eventData = {
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "Event",
+                "name": event.talkTitle || event.name,
+                "description": event.abstract || `${event.role} at ${event.name}`,
+                "startDate": event.date,
+                "location": {
+                    "@type": "Place",
+                    "name": event.location
+                },
+                "performer": {
+                    "@type": "Person",
+                    "name": "Bazlur Rahman"
+                }
+            }
+        };
+
+        // Add URL if available
+        if (event.eventUrl) {
+            eventData.item.url = event.eventUrl;
+        }
+
+        structuredData.itemListElement.push(eventData);
+    });
+
+    return structuredData;
+}
+
 // --- Main Function to Load and Display Speaking Engagements ---
 async function loadSpeakingEngagements() {
     const mainListContainer = document.getElementById('events-main-list');
@@ -401,6 +445,10 @@ async function loadSpeakingEngagements() {
 
         // Store conferences globally for search/filter
         allConferences = conferences;
+
+        // Generate and update structured data
+        const structuredData = generateStructuredData(allConferences);
+        document.getElementById('eventStructuredData').textContent = JSON.stringify(structuredData);
 
         // Remove loading message
         loadingMessage.remove();
@@ -574,8 +622,12 @@ function displayBioSection() {
     bioSection.innerHTML = `
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
             <div class="w-32 h-32 md:w-48 md:h-48 flex-shrink-0">
-                <img src="${bioData.profileImage}" alt="${bioData.name}" 
-                     class="w-full h-full object-cover rounded-full shadow-md">
+                <picture>
+                    <img src="${bioData.profileImage}" alt="${bioData.name}" 
+                         width="192" height="192" loading="lazy"
+                         class="w-full h-full object-cover rounded-full shadow-md"
+                         onload="this.classList.add('loaded')">
+                </picture>
             </div>
             <div class="flex-1">
                 <div class="text-center md:text-left">
