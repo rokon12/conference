@@ -1,5 +1,9 @@
 [
   {
+    "talkTitle": "Java + LLMs: A hands-on guide to building LLMs Apps in Java",
+    "abstract": "Large Language Models (LLMs) have revolutionized how we approach natural language processing and AI applications. In this talk, we'll explore how Java developers can leverage these powerful models using LangChain4j within Jakarta EE applications. You'll learn how to integrate OpenAI, Anthropic, and other LLM providers, implement prompt engineering techniques, and build robust, production-ready AI-enhanced applications using familiar Java technologies."
+  },
+  {
     "talkTitle": "Building LLM Apps in Java with LangChain4j and Jakarta EE",
     "abstract": "Large Language Models (LLMs) have revolutionized how we approach natural language processing and AI applications. In this talk, we'll explore how Java developers can leverage these powerful models using LangChain4j within Jakarta EE applications. You'll learn how to integrate OpenAI, Anthropic, and other LLM providers, implement prompt engineering techniques, and build robust, production-ready AI-enhanced applications using familiar Java technologies."
   },
