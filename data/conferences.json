@@ -1,5 +1,44 @@
 
 [
+
+  {
+    "name": "Prairie Dev Con Winnipeg",
+    "date": "2025",
+    "location": "Winnipeg, MB, Canada",
+    "locationIcon": "🇨🇦",
+    "role": "Speaker",
+    "type": "talk",
+    "talkTitle": "Breaking Java Stereotypes: It's Not Your Dad's Language Anymore",
+    "talkIcon": "🎤",
+    "isUpcoming": true,
+    "eventUrl": "https://www.prairiedevcon.com/",
+    "links": [
+      {
+        "type": "event",
+        "url": "https://www.prairiedevcon.com/",
+        "text": "Details"
+      }
+    ]
+  },
+  {
+    "name": "Prairie Dev Con Winnipeg",
+    "date": "2025",
+    "location": "Winnipeg, MB, Canada",
+    "locationIcon": "🇨🇦",
+    "role": "Speaker",
+    "type": "talk",
+    "talkTitle": "Java + LLMs: A hands-on guide to building LLMs Apps in java",
+    "talkIcon": "🎤",
+    "isUpcoming": true,
+    "eventUrl": "https://www.prairiedevcon.com/",
+    "links": [
+      {
+        "type": "event",
+        "url": "https://www.prairiedevcon.com/",
+        "text": "Details"
+      }
+    ]
+  },
   {
     "name": "Toronto Java Users Group",
     "date": "2025",
