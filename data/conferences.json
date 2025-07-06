@@ -2,6 +2,25 @@
 [
 
   {
+    "name": " Riyadh Java User Group {JUG}",
+    "date": "2025",
+    "location": "Riyadh, Ar Riyad",
+    "locationIcon": "🇸🇦",
+    "role": "Speaker",
+    "type": "talk",
+    "talkTitle": "The Future is Now: A Deep Dive into JDK 22-25 Features",
+    "talkIcon": "🎤",
+    "isUpcoming": true,
+    "eventUrl": "https://www.linkedin.com/events/javanewfeatures7345103512625647617/about/",
+    "links": [
+      {
+        "type": "event",
+        "url": "https://www.linkedin.com/events/javanewfeatures7345103512625647617/about/",
+        "text": "Details"
+      }
+    ]
+  },
+  {
     "name": "Prairie Dev Con Winnipeg",
     "date": "2025",
     "location": "Winnipeg, MB, Canada",
