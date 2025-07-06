@@ -1,4 +1,8 @@
 [
+   {
+    "talkTitle": "The Future is Now: A Deep Dive into JDK 22-25 Features",
+    "abstract": "Java has introduced many important updates over the years. In this hands-on session, we will look at the new features in JDK 22-25 that will change how you write Java code. You will see how structured concurrency makes complex asynchronous operations simpler and safer. We will explore stream gatherers for creating custom data processing pipelines and scoped values that allow for easy context sharing without the issues of ThreadLocal. You will also learn about improved pattern matching and the Foreign Function & Memory API for easier native integration. Don’t miss this chance to enhance your Java skills!"
+  },
   {
     "talkTitle": "Java + LLMs: A hands-on guide to building LLMs Apps in Java",
     "abstract": "Large Language Models (LLMs) have revolutionized how we approach natural language processing and AI applications. In this talk, we'll explore how Java developers can leverage these powerful models using LangChain4j within Jakarta EE applications. You'll learn how to integrate OpenAI, Anthropic, and other LLM providers, implement prompt engineering techniques, and build robust, production-ready AI-enhanced applications using familiar Java technologies."
